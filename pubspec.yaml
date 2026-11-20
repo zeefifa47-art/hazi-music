@@ -1,5 +1,5 @@
 name: hazi_music
-description: Hazi Music - pemutar musik berbasis YouTube dengan login Google.
+description: Hazi Music - pemutar musik berbasis YouTube dengan login email OTP.
 publish_to: none
 version: 1.0.0+1
 
@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  google_sign_in: ^6.2.1
   shared_preferences: ^2.2.3
   youtube_player_flutter: ^9.1.1
 
