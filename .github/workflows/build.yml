@@ -13,7 +13,7 @@ jobs:
 
       - name: Cek file wajib
         run: |
-          for f in main.dart pubspec.yaml icon.png icon_fg.png debug.keystore; do
+          for f in main.dart config.dart pubspec.yaml icon.png icon_fg.png debug.keystore; do
             [ -f "$f" ] || { echo "::error::File $f belum ada di root repo"; exit 1; }
           done
 
@@ -31,7 +31,9 @@ jobs:
         run: flutter create . --platforms=android --org com.hazi --project-name hazi_music
 
       - name: Pasang kode app
-        run: cp main.dart lib/main.dart
+        run: |
+          cp main.dart lib/main.dart
+          cp config.dart lib/config.dart
 
       - name: Atur nama app dan izin internet
         run: |
@@ -39,11 +41,10 @@ jobs:
           sed -i 's/android:label="[^"]*"/android:label="Hazi Music"/' $M
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' $M
 
-      - name: Pakai keystore tetap (supaya SHA-1 login Google konsisten)
+      - name: Pakai keystore tetap (supaya update APK bisa menimpa versi lama)
         run: |
           mkdir -p ~/.android
           cp debug.keystore ~/.android/debug.keystore
-          keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android | grep -E "SHA1|SHA-1"
 
       - run: flutter pub get
 
