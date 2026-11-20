@@ -33,7 +33,7 @@ jobs:
       - name: Pakai keystore tetap (supaya SHA-1 login Google konsisten)
         run: |
           mkdir -p ~/.android
-          cp keystore/debug.keystore ~/.android/debug.keystore
+          cp debug.keystore ~/.android/debug.keystore 2>/dev/null || cp keystore/debug.keystore ~/.android/debug.keystore
           keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android | grep -E "SHA1|SHA-1"
 
       - run: flutter pub get
