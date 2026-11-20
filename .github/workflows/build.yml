@@ -47,6 +47,10 @@ jobs:
 
       - run: flutter pub get
 
+      - name: Tambal plugin webview (kompatibel Gradle baru)
+        run: |
+          find ~/.pub-cache -path '*flutter_inappwebview_android*' -name build.gradle -exec sed -i 's/proguard-android\.txt/proguard-android-optimize.txt/g' {} +
+
       - name: Buat ikon app dari logo
         run: dart run flutter_launcher_icons
 
